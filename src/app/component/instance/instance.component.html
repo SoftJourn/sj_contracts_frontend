@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Deploy new instance</h2>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card card-block" [ngClass]="formStyles.getCardOutlineClass()">
+      <form [formGroup]="deployForm">
+        <div class="row">
+          <!--left column-->
+          <div class="col-xl-6">
+            <div class="form-group row" [ngClass]="formStyles.getValidationClass('name')">
+              <label for="instance-name" class="col-sm-2 col-form-label">Instance name</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" placeholder="Enter name" id="instance-name"
+                       formControlName="name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="contract-name" class="col-sm-2 col-form-label">Contract name</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" disabled id="contract-name" [value]="contract?.name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="contract-type" class="col-sm-2 col-form-label">Type</label>
+              <div class="col-sm-10">
+                <input class="form-control" id="contract-type" type="text" disabled [value]="contract?.type?.type">
+              </div>
+            </div>
+          </div>
+          <!--right column-->
+          <div class="col-xl-6">
+            <div *ngIf="deployForm.get('parameters').length == 0">
+              <p class="lead text-xl-center">Contract's constructor does not have any parameters or contract is without
+                a constructor!</p>
+            </div>
+            <div formArrayName="parameters" *ngIf="deployForm.get('parameters').length > 0">
+              <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                  <th class="col-sm-4">Name</th>
+                  <th class="col-sm-2">Type</th>
+                  <th class="col-sm-6">Value</th>
+                </tr>
+                </thead>
+              </table>
+              <div *ngFor="let parameter of deployForm.controls.parameters.controls; let i = index">
+                <div [formGroupName]="i">
+                  <app-parameter [form]="deployForm.controls.parameters.controls[i]" [showName]=true
+                                 [showType]=true></app-parameter>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="form-group row">
+              <div class="col-sm-12 form-buttons-container">
+                <button class="btn btn-success" [disabled]="!deployForm.valid" type="submit" (click)="onSubmit()">
+                  Submit
+                </button>
+                <button class="btn btn-secondary" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

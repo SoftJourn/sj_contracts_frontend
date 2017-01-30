@@ -1,0 +1,71 @@
+<div>
+  <div class="col-lg-12 col-xl-12 row header-container">
+    <div class="col-lg-6 col-xl-7">
+      <h2>{{contract?.name}} Contract</h2>
+    </div>
+    <div class="col-lg-6 col-xl-5 header-buttons-container form-inline">
+      <button class="btn btn-success" [routerLink]="['/contracts/instance/', contract?.id]">
+        <i class="fa fa-plus btn-icon"></i>New Instance
+      </button>
+    </div>
+  </div>
+  <div class="header-divider">
+    <hr style="width: 100%">
+  </div>
+</div>
+<div class="col-xl-2">
+  <div class="contract-items">
+    <ul class="list-group">
+      <li (click)="isCollapsed1 = true; isCollapsed2 = false"
+          class="list-group-item list-group-item-action">Contract description
+      </li>
+      <li (click)="isCollapsed2 = true; isCollapsed1 = false"
+          class="list-group-item list-group-item-action">Contract instances
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="col-xl-10">
+  <div *ngIf="isCollapsed1">
+    <div class="col-xl-6 list-group">
+      <table class="table table-hover">
+        <thead class="thead-inverse">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let unit of units; let i = index" (click)="openDescription(i)">
+          <th>{{i + 1}}</th>
+          <th>{{unit?.name}}</th>
+          <th>{{unit?.type}}</th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xl-6">
+      <app-describer [(unit)]="unitToShow" [showAnonymous]="showAnonymous" [showOutputs]="showOutputs"
+                     [showConstant]="showConstant"></app-describer>
+    </div>
+  </div>
+  <div class="col-xl-12" *ngIf="isCollapsed2">
+    <table class="table table-hover">
+      <thead class="thead-inverse">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let instance of contract?.instances; let i = index">
+        <th>{{i + 1}}</th>
+        <th>{{instance?.name}}</th>
+        <th>{{instance?.address}}</th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

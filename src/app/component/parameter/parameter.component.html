@@ -1,0 +1,98 @@
+<div class="form-group row" [formGroup]="form" [ngClass]="formStyles.getValidationClass('value')">
+  <label class="col-sm-4 col-form-label" *ngIf="showName">{{form.controls.name.value}}</label>
+  <label class="col-sm-2 col-form-label" *ngIf="showType">{{form.controls.type.value}}</label>
+  <!--for primitives that does not belong to arrays-->
+  <div *ngIf="showName">
+    <div class="col-sm-6" *ngIf="bool">
+      <div class="switch">
+        <input id="value" class="cmn-toggle cmn-toggle-round-flat" formControlName="value" type="checkbox">
+        <label for="value"></label>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="address">
+      <input type="text" class="form-control" formControlName="value"
+             [ngClass]="formStyles.getValidationIcon('value')">
+      <small [hidden]="formStyles.isValidOrPristine('value')"
+             class="form-control-feedback form-text">Enter valid address(valid address should contain 20 symbols)!
+      </small>
+    </div>
+    <div class="col-sm-6" *ngIf="number">
+      <input type="number" min="0" class="form-control" formControlName="value"
+             [ngClass]="formStyles.getValidationIcon('value')">
+      <small [hidden]="formStyles.isValidOrPristine('value')"
+             class="form-control-feedback form-text">Enter valid number(valid number should be positive and no
+        fractional)!
+      </small>
+    </div>
+    <div class="col-sm-6" *ngIf="array" formArrayName="value">
+      <div *ngFor="let parameter of form.controls.value.controls; let i = index">
+        <div [formGroupName]="i">
+          <app-parameter [form]="parameter" [showName]=false [showType]=false [index]="i"></app-parameter>
+        </div>
+      </div>
+      <button class="btn btn-success col-sm-12" (click)="onAdd()"><i class="fa fa-lg fa-plus"></i> Add</button>
+    </div>
+  </div>
+  <!--for primitives that belongs to arrays-->
+  <div *ngIf="!showName">
+    <div *ngIf="index == 0">
+      <div class="col-sm-12" *ngIf="bool">
+        <div class="switch">
+          <input id="value" class="cmn-toggle cmn-toggle-round-flat" formControlName="value" type="checkbox">
+          <label for="value"></label>
+        </div>
+      </div>
+      <div class="col-sm-12" *ngIf="address">
+        <input type="text" class="form-control" formControlName="value"
+               [ngClass]="formStyles.getValidationIcon('value')">
+        <small [hidden]="formStyles.isValidOrPristine('value')"
+               class="form-control-feedback form-text">Enter valid address(valid address should contain 20 symbols)!
+        </small>
+      </div>
+      <div class="col-sm-12" *ngIf="number">
+        <input type="number" min="0" class="form-control" formControlName="value"
+               [ngClass]="formStyles.getValidationIcon('value')">
+        <small [hidden]="formStyles.isValidOrPristine('value')"
+               class="form-control-feedback form-text">Enter valid number(valid number should be positive and no
+          fractional)!
+        </small>
+      </div>
+    </div>
+    <div *ngIf="index != 0">
+      <div class="col-sm-12" *ngIf="bool">
+        <div class="switch col-sm-10 array-padding">
+          <input id="value" class="cmn-toggle cmn-toggle-round-flat" formControlName="value" type="checkbox">
+          <label for="value"></label>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-danger" (click)="onRemove()"><i class="fa fa-lg fa-remove"></i></button>
+        </div>
+      </div>
+      <div class="col-sm-12" *ngIf="address">
+        <div class="col-sm-10 array-padding">
+          <input type="text" class="form-control" formControlName="value"
+                 [ngClass]="formStyles.getValidationIcon('value')">
+          <small [hidden]="formStyles.isValidOrPristine('value')"
+                 class="form-control-feedback form-text">Enter valid address(valid address should contain 20 symbols)!
+          </small>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-danger" (click)="onRemove()"><i class="fa fa-lg fa-remove"></i></button>
+        </div>
+      </div>
+      <div class="col-sm-12" *ngIf="number">
+        <div class="col-sm-10 array-padding">
+          <input type="number" min="0" class="form-control" formControlName="value"
+                 [ngClass]="formStyles.getValidationIcon('value')">
+          <small [hidden]="formStyles.isValidOrPristine('value')"
+                 class="form-control-feedback form-text">Enter valid number(valid number should be positive and no
+            fractional)!
+          </small>
+        </div>
+        <div class="col-sm-2">
+          <button class="btn btn-danger" (click)="onRemove()"><i class="fa fa-lg fa-remove"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

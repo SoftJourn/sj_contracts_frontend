@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Deploy</h2>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card card-block" [ngClass]="formStyles.getCardOutlineClass()">
+      <form [formGroup]="deployForm">
+        <div class="row">
+          <!--left column-->
+          <div class="col-xl-6">
+            <div class="form-group row" [ngClass]="formStyles.getValidationClass('name')">
+              <label for="contract-name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="text" placeholder="Enter name" id="contract-name"
+                       formControlName="name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="contract-type" class="col-sm-2 col-form-label">Type</label>
+              <div class="col-sm-10">
+                <select id="contract-type" class="form-control" formControlName="type">
+                  <option *ngFor="let type of types;" [ngValue]="type" (value)="type?.type">
+                    {{type?.type}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" [ngClass]="formStyles.getValidationClass('code')">
+              <label for="contract-code" class="col-sm-2 col-form-label">Code</label>
+              <div class="col-sm-10">
+              <textarea class="form-control" id="contract-code" rows="10" formControlName="code"
+                        placeholder="Enter code" [ngClass]="formStyles.getValidationIcon('code')"></textarea>
+              </div>
+              <label [hidden]="formStyles.isValidOrPristine('code')"
+                     class="form-control-feedback pull-right">Contract's bytecode should be in hexadecimal
+                string!</label>
+            </div>
+            <div class="form-group row" [ngClass]="formStyles.getValidationClass('abi')">
+              <label for="contract-abi" class="col-sm-2 col-form-label">Abi</label>
+              <div class="col-sm-10">
+              <textarea class="form-control" id="contract-abi" rows="10" formControlName="abi"
+                        placeholder="Enter abi"
+                        [ngClass]="formStyles.getValidationIcon('abi')"></textarea>
+              </div>
+              <label [hidden]="formStyles.isValidOrPristine('abi')"
+                     class="form-control-feedback pull-right">{{deployForm.get('abi').getError('error')}}</label>
+            </div>
+          </div>
+          <!--right column-->
+          <div class="col-xl-6">
+            <div *ngIf="deployForm.get('parameters').length == 0 && !deployForm.controls['abi'].pristine">
+              <p class="lead text-xl-center">Contract's constructor does not have any parameters or contract is without
+                a constructor!</p>
+            </div>
+            <div formArrayName="parameters" *ngIf="deployForm.get('parameters').length > 0">
+              <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                  <th class="col-sm-4">Name</th>
+                  <th class="col-sm-2">Type</th>
+                  <th class="col-sm-6">Value</th>
+                </tr>
+                </thead>
+              </table>
+              <div *ngFor="let parameter of deployForm.controls.parameters.controls; let i = index">
+                <div [formGroupName]="i">
+                  <app-parameter [form]="deployForm.controls.parameters.controls[i]" [showName]=true
+                                 [showType]=true></app-parameter>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="form-group row">
+              <div class="col-sm-12 form-buttons-container">
+                <button class="btn btn-success" type="submit"><i class="fa fa-lg fa-download"></i> Upload abi</button>
+                <button class="btn btn-success" type="submit"><i class="fa fa-lg fa-download"></i> Upload code</button>
+                <button class="btn btn-success" [disabled]="!deployForm.valid" type="submit" (click)="onSubmit()">
+                  Submit
+                </button>
+                <button class="btn btn-secondary" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
