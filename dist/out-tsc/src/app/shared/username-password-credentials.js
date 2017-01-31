@@ -1,1 +1,0 @@
-//# sourceMappingURL=/home/kraytsman/workspace/softjourn/sj_contracts_frontend/src/src/app/shared/username-password-credentials.js.map
