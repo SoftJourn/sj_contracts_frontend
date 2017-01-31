@@ -85,7 +85,7 @@ export class ContractUnitService {
     } else if (variable.type.includes('uint')) {
       controls['value'] = new FormControl('', [Validators.required, Validators.pattern('^[0-9]\\d*$')]);
     } else if (variable.type == 'address') {
-      controls['value'] = new FormControl('', [Validators.required, Validators.minLength(20), Validators.maxLength(20)]);
+      controls['value'] = new FormControl('', [Validators.required, Validators.minLength(40), Validators.maxLength(40)]);
     } else if (variable.type.includes('[]')) {
       controls['value'] = new FormArray([this.formGroupDependsOnType(new Variable('',
         variable.type.substring(0, variable.type.length - 2)))]);
