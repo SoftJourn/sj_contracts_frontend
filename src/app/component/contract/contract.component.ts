@@ -24,7 +24,6 @@ export class ContractComponent implements OnInit {
   unitToShow: ContractUnit;
 
   showAnonymous: boolean;
-  showOutputs: boolean;
   showConstant: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -53,9 +52,8 @@ export class ContractComponent implements OnInit {
 
   openDescription(index): void {
     this.unitToShow = this.units[index];
-    this.showAnonymous = typeof this.unitToShow.anonymous != 'undefined';
-    this.showConstant = typeof this.unitToShow.constant != 'undefined';
-    this.showOutputs = this.unitToShow.outputs.length > 0;
+    typeof this.unitToShow.anonymous != 'undefined' ? this.showAnonymous = true : this.showAnonymous = false;
+    typeof this.unitToShow.constant != 'undefined' ? this.showConstant = true : this.showConstant = false;
   }
 
 }

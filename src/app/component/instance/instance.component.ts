@@ -53,7 +53,6 @@ export class InstanceComponent implements OnInit {
         for (let variable of <Variable[]>constructor.inputs)
           parameters.push(this.contractUnitService.formGroupDependsOnType(variable));
       }
-      console.log(this.deployForm);
     });
   }
 

@@ -40,6 +40,9 @@ import {ContractUnitService} from "./services/contract-unit.service";
 import { ContractComponent } from './component/contract/contract.component';
 import { DescriberComponent } from './component/describer/describer.component';
 import { InstanceComponent } from './component/instance/instance.component';
+import { CompileComponent } from './component/compile/compile.component';
+import {CompileService} from "./services/compile.service";
+import { AceEditorComponent } from 'ng2-ace-editor'
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { InstanceComponent } from './component/instance/instance.component';
     ParameterComponent,
     ContractComponent,
     DescriberComponent,
-    InstanceComponent
+    InstanceComponent,
+    CompileComponent,
+    AceEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +81,7 @@ import { InstanceComponent } from './component/instance/instance.component';
     appRoutingProviders,
     ContractService,
     ContractUnitService,
+    CompileService,
     {provide: ErrorHandler, useClass: GlobalErrorHandler},
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

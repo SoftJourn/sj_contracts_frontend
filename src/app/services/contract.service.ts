@@ -5,7 +5,6 @@ import {Type} from "../entity/type";
 import {HttpService} from "./http.service";
 import {Contract} from "../entity/contract";
 import {ContractDeployDto} from "../entity/contract-deploy-dto";
-import {ContractUnit} from "../entity/contract-unit";
 import {InstanceDeployDto} from "../entity/instance-deploy-dto";
 
 @Injectable()

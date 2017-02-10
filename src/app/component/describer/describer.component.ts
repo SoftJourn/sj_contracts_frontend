@@ -18,9 +18,6 @@ export class DescriberComponent implements OnInit {
   @Input('showAnonymous')
   showAnonymous: boolean;
 
-  @Input('showOutputs')
-  showOutputs: boolean;
-
   @Input('showConstant')
   showConstant: boolean;
 

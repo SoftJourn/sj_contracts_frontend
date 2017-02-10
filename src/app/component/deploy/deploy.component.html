@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="form-group row" [ngClass]="formStyles.getValidationClass('code')">
-              <label for="contract-code" class="col-sm-2 col-form-label">Code</label>
+              <label for="contract-code" class="col-sm-2 col-form-label">Bytecode</label>
               <div class="col-sm-10">
               <textarea class="form-control" id="contract-code" rows="10" formControlName="code"
                         placeholder="Enter code" [ngClass]="formStyles.getValidationIcon('code')"></textarea>
@@ -78,16 +78,36 @@
         </div>
         <div class="row">
           <div class="col-xl-12">
-            <div class="form-group row">
+            <form class="form-inline">
               <div class="col-sm-12 form-buttons-container">
-                <button class="btn btn-success" type="submit"><i class="fa fa-lg fa-download"></i> Upload abi</button>
-                <button class="btn btn-success" type="submit"><i class="fa fa-lg fa-download"></i> Upload code</button>
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="input-group-btn">
+                    <span class="btn btn-info">
+                      <i class="fa fa-lg fa-upload btn-icon"></i>Upload abi
+                        <input type="file" style="display: none;"
+                               accept=".json" (change)="handleInputChange($event,'abi')">
+                    </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="input-group-btn">
+                    <span class="btn btn-info">
+                      <i class="fa fa-lg fa-upload btn-icon"></i>Upload code
+                        <input type="file" style="display: none;"
+                               accept=".txt" (change)="handleInputChange($event,'code')">
+                    </span>
+                    </label>
+                  </div>
+                </div>
                 <button class="btn btn-success" [disabled]="!deployForm.valid" type="submit" (click)="onSubmit()">
                   Submit
                 </button>
                 <button class="btn btn-secondary" type="button">Cancel</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </form>

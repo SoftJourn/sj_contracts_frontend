@@ -4,7 +4,56 @@
     <th colspan="3">Description</th>
   </tr>
   </thead>
-  <tbody>
+  <!--if only inputs-->
+  <tbody *ngIf="unit?.inputs && unit?.outputs == 'undefined'">
+  <tr>
+    <th class="col-xl-8">Name:</th>
+    <th class="col-xl-4">{{unit?.name}}</th>
+  </tr>
+  <tr>
+    <th class="col-xl-8">Type:</th>
+    <th class="col-xl-4">{{unit?.type}}</th>
+  </tr>
+  <tr *ngIf="showConstant">
+    <th class="col-xl-8">Constant:</th>
+    <th class="col-xl-4">{{unit?.constant}}</th>
+  </tr>
+  <tr *ngIf="showAnonymous">
+    <th class="col-xl-8">Anonymous:</th>
+    <th class="col-xl-4">{{unit?.anonymous}}</th>
+  </tr>
+  <tr *ngFor="let input of unit?.inputs;  let i = index">
+    <th class="col-xl-4" *ngIf="i == 0">Inputs:</th>
+    <th class="col-xl-4" *ngIf="i > 0"></th>
+    <th class="col-xl-4">{{input?.name}}</th>
+    <th class="col-xl-4">{{input?.type}}</th>
+  </tr>
+  </tbody>
+  <!--in only outputs-->
+  <tbody *ngIf="unit?.inputs == 'undefined' && unit?.outputs">
+  <tr>
+    <th class="col-xl-8">Name:</th>
+    <th class="col-xl-4">{{unit?.name}}</th>
+  </tr>
+  <tr>
+    <th class="col-xl-8">Type:</th>
+    <th class="col-xl-4">{{unit?.type}}</th>
+  </tr>
+  <tr *ngIf="showConstant">
+    <th class="col-xl-8">Constant:</th>
+    <th class="col-xl-4">{{unit?.constant}}</th>
+  </tr>
+  <tr *ngIf="showAnonymous">
+    <th class="col-xl-8">Anonymous:</th>
+    <th class="col-xl-4">{{unit?.anonymous}}</th>
+  </tr>
+  <tr *ngFor="let output of unit?.outputs;  let i = index">
+    <th class="col-xl-8" *ngIf="i == 0">Outputs:</th>
+    <th class="col-xl-8" *ngIf="i > 0"></th>
+    <th class="col-xl-4">{{output?.type}}</th>
+  </tbody>
+  <!--if both-->
+  <tbody *ngIf="unit?.inputs != 'undefined' && unit?.outputs != 'undefined'">
   <tr>
     <th class="col-xl-8">Name:</th>
     <th class="col-xl-4">{{unit?.name}}</th>

@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-xl-7">
+      <h2>Compile contract</h2>
+    </div>
+    <div class="col-lg-6 col-xl-5 header-buttons-container form-inline">
+      <button class="btn btn-success" (click)="onCompile()">
+        <i class="fa fa-play btn-icon"></i>Compile
+      </button>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card card-block" [ngClass]="formStyles.getCardOutlineClass()">
+      <!--left column-->
+      <div class="col-xl-6">
+        <table class="table table-hover">
+          <thead class="thead-inverse">
+          <tr>
+            <th class="col-sm-12">Code to compile</th>
+          </tr>
+          </thead>
+        </table>
+        <form [formGroup]="compileForm">
+          <div class="form-group row">
+            <label for="code-optimization" class="col-sm-1 col-form-label">Optimize</label>
+            <div class="switch col-sm-11" id="code-optimization">
+              <input id="value" class="cmn-toggle cmn-toggle-round-flat" formControlName="optimize" type="checkbox">
+              <label for="value"></label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="code" class="col-sm-1 col-form-label">Code</label>
+            <div class="col-sm-11">
+              <ace-editor id="code"
+                          #editor style="height:650px;"></ace-editor>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--right column-->
+      <div class="col-xl-6">
+        <div *ngIf="compilationResultsForm">
+          <table class="table table-hover">
+            <thead class="thead-inverse">
+            <tr>
+              <th class="col-sm-12">Compilation results</th>
+            </tr>
+            </thead>
+          </table>
+          <form [formGroup]="compilationResultsForm">
+            <div formArrayName="objects">
+              <div *ngFor="let one of compilationResultsForm.controls.objects.controls; let i = index">
+                <div class="card card-block card-outline-success">
+                  <div class="form-group row">
+                    <label for="contract-name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                      <input class="form-control" type="text" id="contract-name"
+                             value="{{one.controls.objectsName.value}}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="contract-code" class="col-sm-2 col-form-label">Bytecode</label>
+                    <div class="col-sm-10">
+                    <textarea class="form-control" id="contract-code" *ngIf="one.controls.bytecode.value"
+                              rows="5">{{one.controls.bytecode.value}}</textarea>
+                      <textarea class="form-control" id="contract-code" *ngIf="!one.controls.bytecode.value"
+                                rows="1">{{one.controls.bytecode.value}}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="contract-abi" class="col-sm-2 col-form-label">Abi</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="contract-abi" rows="5">{{one.controls.abi.value}}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-sm-12 form-buttons-container">
+                      <button class="btn btn-success" type="submit" (click)="onDownload(one)"><i
+                        class="fa fa-lg fa-download"></i> Download
+                        Contract
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="alert alert-danger" role="alert" *ngIf="compilationResultsForm.controls.errors.value">
+                <strong>Compilation error!</strong> {{compilationResultsForm.controls.errors.value}}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

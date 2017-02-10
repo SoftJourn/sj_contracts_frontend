@@ -55,6 +55,7 @@ export class DeployComponent implements OnInit {
       .debounceTime(400)
       .distinctUntilChanged()
       .subscribe(change => {
+        this.cleanParameters();
         if (this.deployForm.get('abi').valid) {
           let units = this.contractUnitService.getContractUnit(change);
           let unit = units.filter((unit: any) => unit.type == 'constructor');
@@ -65,11 +66,7 @@ export class DeployComponent implements OnInit {
               parameters.push(this.contractUnitService.formGroupDependsOnType(variable));
           }
         } else {
-          let parameters = <FormArray>this.deployForm.get('parameters');
-          let length = parameters.controls.length;
-          for (let i = 0; i < length; i++) {
-            parameters.removeAt(0);
-          }
+          this.cleanParameters();
         }
       });
 
@@ -96,5 +93,48 @@ export class DeployComponent implements OnInit {
         }
       });
   }
+
+  private cleanParameters(): void {
+    let parameters = <FormArray>this.deployForm.get('parameters');
+    let length = parameters.controls.length;
+    for (let i = 0; i < length; i++) {
+      parameters.removeAt(0);
+    }
+  }
+
+  public handleInputChange(e, destination: string) {
+    let file: File = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    let pattern = /(text\/plain)|(application\/json)/;
+    let reader = new FileReader();
+    // check pattern
+    if (!file.type.match(pattern)) {
+      this.notificationService.error('Error', 'This file format not supported!');
+    } else {
+      // do actions after file loading
+      reader.onloadend = () => {
+        // prepare buffer
+        let bufView = new Uint16Array(reader.result);
+        // read by char code
+        for (let i = 0, strLen = reader.result.length; i < strLen; i++) {
+          bufView[i] = reader.result.charCodeAt(i);
+        }
+        // char codes to string
+        let result = Array.prototype.map.call(bufView, function (ch) {
+          return String.fromCharCode(ch);
+        }).join('');
+        this.deployForm.get(destination).patchValue(result);
+        this.deployForm.get(destination).markAsDirty();
+        e.target.value = null;
+        this.notificationService.success('Success', 'File was loaded successfully!')
+      }
+      ;
+      reader.onerror = () => {
+        this.notificationService.error('Error', 'File was not loaded, file may contain mistakes!')
+      };
+      // read file using byte array method
+      reader.readAsArrayBuffer(file);
+    }
+  }
+
 
 }
