@@ -3,11 +3,12 @@ import {AppProperties} from "../shared/app.properties";
 import {Http} from "@angular/http";
 import {Observable} from "rxjs";
 import {CompileRequest} from "../entity/compile-request";
+import {HttpService} from "./http.service";
 
 @Injectable()
 export class CompileService {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpService) {
   }
 
   protected getUrl(): string {
