@@ -1,8 +1,7 @@
 import {
   Component,
   OnInit,
-  ViewChild
-} from '@angular/core';
+} from "@angular/core";
 import {FormValidationStyles} from "../../shared/form-validation-styles";
 import {
   FormGroup,
@@ -23,7 +22,6 @@ import {NotificationsService} from "angular2-notifications";
 })
 export class CompileComponent implements OnInit {
 
-  @ViewChild('editor') editor;
   code: string;
 
   compileForm: FormGroup;
@@ -39,14 +37,14 @@ export class CompileComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.editor.setTheme("ambiance");
-    this.editor.setMode("typescript");
-    let editor = this.editor.getEditor();
+    let editor = ace.edit("code");
+    editor.setTheme("ace/theme/ambiance");
     editor.$blockScrolling = Infinity;
+    editor.getSession().setMode("ace/mode/solidity");
     editor.getSession().on('change', e => {
       this.code = editor.getValue();
     });
-    this.editor.getEditor().setOptions({
+    editor.setOptions({
       showGutter: true,
       showInvisibles: false,
       highlightActiveLine: true,
