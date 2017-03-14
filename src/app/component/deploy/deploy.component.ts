@@ -129,9 +129,9 @@ export class DeployComponent implements OnInit {
       reader.onerror = () => {
         this.notificationService.error('Error', 'File was not loaded, file may contain mistakes!')
       };
-      // read file using byte array method
-      reader.readAsArrayBuffer(file);
     }
+    // read file using byte array method
+    reader.readAsArrayBuffer(file);
   }
 
 

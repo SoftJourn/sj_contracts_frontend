@@ -126,7 +126,7 @@ export class CompileComponent implements OnInit {
     let name = download.get('objectsName').value;
     let bytecode = download.get('bytecode').value;
     let abi = download.get('abi').value;
-    this.download(bytecode, name + "_bytecode");
+    this.download(bytecode, name + "_bytecode.txt");
     this.download(abi, name + "_abi.json");
   }
 
