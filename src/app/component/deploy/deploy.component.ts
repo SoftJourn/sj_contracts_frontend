@@ -106,30 +106,26 @@ export class DeployComponent implements OnInit {
     let pattern = /(text\/plain)|(application\/json)/;
     let reader = new FileReader();
     // check pattern
-    console.log(e);
-    console.log(file);
-    console.log(file.type);
-    if (!file.type.match(pattern)) {
-      this.notificationService.error('Error', 'This file format not supported!');
-    } else {
-      // do actions after file loading
-      reader.onloadend = () => {
-        // prepare buffer
-        let bufView = new Uint16Array(reader.result);
-        // read by char code
-        for (let i = 0, strLen = reader.result.length; i < strLen; i++) {
-          bufView[i] = reader.result.charCodeAt(i);
-        }
-        // char codes to string
-        let result = Array.prototype.map.call(bufView, function (ch) {
-          return String.fromCharCode(ch);
-        }).join('');
-        this.deployForm.get(destination).patchValue(result);
-        this.deployForm.get(destination).markAsDirty();
-        e.target.value = null;
-        this.notificationService.success('Success', 'File was loaded successfully!')
+    // if (!file.type.match(pattern)) {
+    //   this.notificationService.error('Error', 'This file format not supported!');
+    // } else {
+    // do actions after file loading
+    reader.onloadend = () => {
+      // prepare buffer
+      let bufView = new Uint16Array(reader.result);
+      // read by char code
+      for (let i = 0, strLen = reader.result.length; i < strLen; i++) {
+        bufView[i] = reader.result.charCodeAt(i);
       }
-      ;
+      // char codes to string
+      let result = Array.prototype.map.call(bufView, function (ch) {
+        return String.fromCharCode(ch);
+      }).join('');
+      this.deployForm.get(destination).patchValue(result);
+      this.deployForm.get(destination).markAsDirty();
+      e.target.value = null;
+      this.notificationService.success('Success', 'File was loaded successfully!')
+      // };
       reader.onerror = () => {
         this.notificationService.error('Error', 'File was not loaded, file may contain mistakes!')
       };

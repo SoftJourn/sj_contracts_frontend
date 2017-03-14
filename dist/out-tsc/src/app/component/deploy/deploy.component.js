@@ -92,36 +92,32 @@ export var DeployComponent = (function () {
         var pattern = /(text\/plain)|(application\/json)/;
         var reader = new FileReader();
         // check pattern
-        console.log(e);
-        console.log(file);
-        console.log(file.type);
-        if (!file.type.match(pattern)) {
-            this.notificationService.error('Error', 'This file format not supported!');
-        }
-        else {
-            // do actions after file loading
-            reader.onloadend = function () {
-                // prepare buffer
-                var bufView = new Uint16Array(reader.result);
-                // read by char code
-                for (var i = 0, strLen = reader.result.length; i < strLen; i++) {
-                    bufView[i] = reader.result.charCodeAt(i);
-                }
-                // char codes to string
-                var result = Array.prototype.map.call(bufView, function (ch) {
-                    return String.fromCharCode(ch);
-                }).join('');
-                _this.deployForm.get(destination).patchValue(result);
-                _this.deployForm.get(destination).markAsDirty();
-                e.target.value = null;
-                _this.notificationService.success('Success', 'File was loaded successfully!');
-            };
+        // if (!file.type.match(pattern)) {
+        //   this.notificationService.error('Error', 'This file format not supported!');
+        // } else {
+        // do actions after file loading
+        reader.onloadend = function () {
+            // prepare buffer
+            var bufView = new Uint16Array(reader.result);
+            // read by char code
+            for (var i = 0, strLen = reader.result.length; i < strLen; i++) {
+                bufView[i] = reader.result.charCodeAt(i);
+            }
+            // char codes to string
+            var result = Array.prototype.map.call(bufView, function (ch) {
+                return String.fromCharCode(ch);
+            }).join('');
+            _this.deployForm.get(destination).patchValue(result);
+            _this.deployForm.get(destination).markAsDirty();
+            e.target.value = null;
+            _this.notificationService.success('Success', 'File was loaded successfully!');
+            // };
             reader.onerror = function () {
                 _this.notificationService.error('Error', 'File was not loaded, file may contain mistakes!');
             };
             // read file using byte array method
             reader.readAsArrayBuffer(file);
-        }
+        };
     };
     DeployComponent = __decorate([
         Component({
