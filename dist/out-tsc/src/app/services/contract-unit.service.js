@@ -68,7 +68,6 @@ export var ContractUnitService = (function () {
         var _this = this;
         return function (control) {
             try {
-                console.log(control.value);
                 _this.getContractUnit(control.value);
             }
             catch (error) {

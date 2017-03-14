@@ -69,7 +69,6 @@ export class InstanceComponent implements OnInit {
     this.contractService.deployContractInstance(new InstanceDeployDto(this.contractId,
       this.deployForm.get('name').value, this.contractUnitService.collectParameters(this.deployForm.value['parameters'])))
       .subscribe(response => {
-        console.log(response);
         this.notificationService.success('Success', 'Contract has been deployed successfully!');
       }, error => {
         try {

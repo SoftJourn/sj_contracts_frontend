@@ -68,7 +68,6 @@ export class ContractUnitService {
   allFieldsMatcher(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       try {
-        console.log(control.value);
         this.getContractUnit(control.value);
       } catch (error) {
         return {'error': error.message};

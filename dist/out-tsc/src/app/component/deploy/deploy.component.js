@@ -64,7 +64,6 @@ export var DeployComponent = (function () {
         var _this = this;
         this.contractService.deployContract(new ContractDeployDto(this.deployForm.get('name').value, this.deployForm.get('code').value, this.deployForm.get('abi').value, this.deployForm.get('type').value.type, this.contractUnitService.collectParameters(this.deployForm.value['parameters'])))
             .subscribe(function (response) {
-            console.log(response);
             _this.notificationService.success('Success', 'Contract has been deployed successfully!');
         }, function (error) {
             try {
@@ -93,6 +92,7 @@ export var DeployComponent = (function () {
         var pattern = /(text\/plain)|(application\/json)/;
         var reader = new FileReader();
         // check pattern
+        console.log(e);
         console.log(file);
         console.log(file.type);
         if (!file.type.match(pattern)) {

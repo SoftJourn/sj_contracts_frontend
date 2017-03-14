@@ -78,7 +78,6 @@ export class DeployComponent implements OnInit {
       this.deployForm.get('code').value, this.deployForm.get('abi').value, this.deployForm.get('type').value.type,
       this.contractUnitService.collectParameters(this.deployForm.value['parameters'])))
       .subscribe(response => {
-        console.log(response);
         this.notificationService.success('Success', 'Contract has been deployed successfully!');
       }, error => {
         try {
@@ -107,6 +106,7 @@ export class DeployComponent implements OnInit {
     let pattern = /(text\/plain)|(application\/json)/;
     let reader = new FileReader();
     // check pattern
+    console.log(e);
     console.log(file);
     console.log(file.type);
     if (!file.type.match(pattern)) {

@@ -51,7 +51,6 @@ export var InstanceComponent = (function () {
         var _this = this;
         this.contractService.deployContractInstance(new InstanceDeployDto(this.contractId, this.deployForm.get('name').value, this.contractUnitService.collectParameters(this.deployForm.value['parameters'])))
             .subscribe(function (response) {
-            console.log(response);
             _this.notificationService.success('Success', 'Contract has been deployed successfully!');
         }, function (error) {
             try {
