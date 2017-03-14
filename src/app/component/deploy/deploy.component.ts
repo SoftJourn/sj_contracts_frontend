@@ -107,6 +107,8 @@ export class DeployComponent implements OnInit {
     let pattern = /(text\/plain)|(application\/json)/;
     let reader = new FileReader();
     // check pattern
+    console.log(file);
+    console.log(file.type);
     if (!file.type.match(pattern)) {
       this.notificationService.error('Error', 'This file format not supported!');
     } else {

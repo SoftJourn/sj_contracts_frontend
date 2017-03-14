@@ -6,6 +6,7 @@ export class Contract {
               name: string,
               code: string,
               abi: string,
+              active: boolean,
               type: Type,
               instances: Instance[]) {
 

@@ -42,7 +42,6 @@ import { DescriberComponent } from './component/describer/describer.component';
 import { InstanceComponent } from './component/instance/instance.component';
 import { CompileComponent } from './component/compile/compile.component';
 import {CompileService} from "./services/compile.service";
-import { AceEditorComponent } from 'ng2-ace-editor'
 
 @NgModule({
   declarations: [
@@ -56,8 +55,7 @@ import { AceEditorComponent } from 'ng2-ace-editor'
     ContractComponent,
     DescriberComponent,
     InstanceComponent,
-    CompileComponent,
-    AceEditorComponent
+    CompileComponent
   ],
   imports: [
     BrowserModule,

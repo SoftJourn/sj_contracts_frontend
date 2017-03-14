@@ -1,6 +1,7 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  HostListener
 } from '@angular/core';
 import {ContractService} from "../../services/contract.service";
 import {Type} from "../../entity/type";
@@ -48,8 +49,21 @@ export class ContractsComponent implements OnInit {
     }
   }
 
-  openContract(index) {
-    this.router.navigate(['/contracts/' + index]);
+  openContract(event: Event, index) {
+    if (!event.defaultPrevented) {
+      this.router.navigate(['/contracts/' + index]);
+    }
+  }
+
+  changeActivation(event: Event, contractId): void {
+    event.preventDefault();
+    this.contractService.changeActive(contractId).subscribe(response => {
+      this.contractService.getContracts().subscribe(
+        contracts => {
+          this.contracts = contracts;
+        }
+      );
+    });
   }
 
 }

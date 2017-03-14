@@ -37,6 +37,10 @@ export class ContractService {
     return this.httpService.post(this.getUrl(), contract).map(response => response.json());
   }
 
+  public changeActive(id: number): Observable<any> {
+    return this.httpService.post(this.getUrl() + '/' + id, '').map(response => response.json());
+  }
+
   public deployContractInstance(instance: InstanceDeployDto): Observable<any> {
     return this.httpService.post(this.getUrl() + '/instances', instance).map(response => response.json());
   }
