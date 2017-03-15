@@ -103,13 +103,7 @@ export class DeployComponent implements OnInit {
 
   public handleInputChange(e, destination: string) {
     let file: File = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    let pattern = /(text\/plain)|(application\/json)/;
     let reader = new FileReader();
-    // check pattern
-    // if (!file.type.match(pattern)) {
-    //   this.notificationService.error('Error', 'This file format not supported!');
-    // } else {
-    // do actions after file loading
     reader.onloadend = () => {
       // prepare buffer
       let bufView = new Uint16Array(reader.result);
@@ -124,12 +118,12 @@ export class DeployComponent implements OnInit {
       this.deployForm.get(destination).patchValue(result);
       this.deployForm.get(destination).markAsDirty();
       e.target.value = null;
-      this.notificationService.success('Success', 'File was loaded successfully!')
+      this.notificationService.success('Success', 'File was loaded successfully!');
       // };
       reader.onerror = () => {
         this.notificationService.error('Error', 'File was not loaded, file may contain mistakes!')
       };
-    }
+    };
     // read file using byte array method
     reader.readAsArrayBuffer(file);
   }

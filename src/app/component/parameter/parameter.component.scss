@@ -1,3 +1,16 @@
-.array-padding{
+.array-padding {
   padding-left: 0px;
+}
+
+.text-overflow {
+}
+
+@media (max-width: 1500px) {
+  .text-overflow {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
 }

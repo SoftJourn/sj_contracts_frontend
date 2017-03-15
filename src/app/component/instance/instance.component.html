@@ -12,7 +12,7 @@
       <form [formGroup]="deployForm">
         <div class="row">
           <!--left column-->
-          <div class="col-xl-6">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <div class="form-group row" [ngClass]="formStyles.getValidationClass('name')">
               <label for="instance-name" class="col-sm-2 col-form-label">Instance name</label>
               <div class="col-sm-10">
@@ -34,7 +34,7 @@
             </div>
           </div>
           <!--right column-->
-          <div class="col-xl-6">
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <div *ngIf="deployForm.get('parameters').length == 0">
               <p class="lead text-xl-center">Contract's constructor does not have any parameters or contract is without
                 a constructor!</p>
@@ -43,9 +43,9 @@
               <table class="table table-hover">
                 <thead class="thead-inverse">
                 <tr>
-                  <th class="col-sm-4">Name</th>
-                  <th class="col-sm-2">Type</th>
-                  <th class="col-sm-6">Value</th>
+                  <th class="col-sm-4 col-md-4 col-lg-4 col-xl-4">Name</th>
+                  <th class="col-sm-2 col-md-2 col-lg-2 col-xl-2">Type</th>
+                  <th class="col-sm-6 col-md-6 col-lg-6 col-xl-6">Value</th>
                 </tr>
                 </thead>
               </table>
