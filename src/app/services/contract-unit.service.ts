@@ -81,7 +81,7 @@ export class ContractUnitService {
       type: new FormControl(variable.type)
     };
     if (variable.type == 'bool') {
-      controls['value'] = new FormControl('', [Validators.required]);
+      controls['value'] = new FormControl(false);
     } else if (variable.type.includes('uint')) {
       controls['value'] = new FormControl('', [Validators.required, Validators.pattern('^[0-9]\\d*$')]);
     } else if (variable.type == 'address') {

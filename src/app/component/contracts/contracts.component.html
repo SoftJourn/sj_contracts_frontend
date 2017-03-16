@@ -32,7 +32,7 @@
       <th>Name</th>
       <th>Type</th>
       <th>Instances</th>
-      <th>Active</th>
+      <th style="width: 200px">Active</th>
     </tr>
     </thead>
     <tbody>
@@ -44,7 +44,7 @@
       <th>{{contract?.name}}</th>
       <th>{{contract?.type.type}}</th>
       <th>{{contract?.instances.length}}</th>
-      <th>
+      <th style="width: 200px">
         <div class="switch">
           <input id="{{i}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked *ngIf="contract?.active">
           <input id="{{i}}" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" *ngIf="!contract?.active">
